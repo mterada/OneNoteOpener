@@ -1,0 +1,43 @@
+OneNote
+
+・「ノート」へのリンクをコピー
+https://1drv.ms/u/s!Aj-TVhb3Izf-hdFtOUhnyjsEtkReEA?wd=target%28%E6%A4%9C%E7%B4%A2%E3%83%AF%E3%83%BC%E3%83%89%E3%82%92%E5%BF%98%E3%82%8C%E3%82%8B%E3%81%AA%EF%BC%81.one%7C1FCEB2BE-5528-4AAD-8D8B-8AE242A064CF%2F%E3%82%B7%E3%83%A7%E3%83%BC%E3%83%88%E3%82%AB%E3%83%83%E3%83%88%7C5CD22D87-C0D5-484F-A887-941F669E2CF6%2F%29
+onenote:https://d.docs.live.net/fe3723f71656933f/ドキュメント/Default%20Note/検索ワードを忘れるな！.one#ショートカット&section-id={1FCEB2BE-5528-4AAD-8D8B-8AE242A064CF}&page-id={5CD22D87-C0D5-484F-A887-941F669E2CF6}&end
+
+・「セクション」へのリンクをコピー
+https://1drv.ms/u/s!Aj-TVhb3Izf-hdFtOUhnyjsEtkReEA?wd=target%28%E3%82%AF%E3%82%A4%E3%83%83%E3%82%AF%20%E3%83%8E%E3%83%BC%E3%83%88.one%7CA52DC338-E1C9-4C9D-A996-D786897A1FBE%2F%29
+onenote:https://d.docs.live.net/fe3723f71656933f/ドキュメント/Default%20Note/クイック%20ノート.one#section-id={A52DC338-E1C9-4C9D-A996-D786897A1FBE}&end
+
+・「ノートブック」へのリンクをコピー
+https://1drv.ms/u/s!Aj-TVhb3Izf-hdFtOUhnyjsEtkReEA
+onenote:https://d.docs.live.net/fe3723f71656933f/ドキュメント/Default%20Note/
+
+-----------------------------------------------------------------------------
+アプリ内のノートを直接開くショートカットをデスクトップに生成するツール
+・アプリ内で右クリックして「＊へのリンクをコピー」を実行する。
+・OneNoteOpener を起動
+　⇒　クリップボードにコピーされた情報からデスクトップにショートカットを生成する。
+-----------------------------------------------------------------------------
+クリップボードにコピーされたリンクからタイトル名を抽出してショートカット名にする
+ただし、タイトルにファイル名禁止文字が使われていたら _ に置き換える。
+
+３つのタイプに対応するロジック
+
+if "onenote:"で始まる文字列を抽出　⇒　それがデスクトップ用のURL
+なければ　対象外
+
+if URL が / で終わっていたらノートブック
+　１つ前の / との間の文字列が　タイトル名
+else if &end で終わっていたら（セクションかノート）
+   if ".one#section-id=" を含むなら（セクション）
+　　その直前の / からこの文字列の前までがタイトル
+　else if  "&section-id=" を含むなら（ノート）
+　　その直前の # からこの文字列の前までがタイトル
+   else  対象外
+else 
+  対象外
+
+何度も同じショートカットを作り直さないように、
+ショートカットが正常に作成できたら、クリップボードをクリアする。
+
+以上
