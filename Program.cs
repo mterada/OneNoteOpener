@@ -1,12 +1,13 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using IWshRuntimeLibrary;
+//using System.Runtime.InteropServices;
+//using IWshRuntimeLibrary;
 using System.Text.RegularExpressions;
+using System.Text;
 
 namespace OneNoteOpener
 {
@@ -78,10 +79,12 @@ namespace OneNoteOpener
             // onenoteName を安全なファイル名に変換して、ショートカット名にする
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string shortcutName = Regex.Replace(onenoteName, "[\\\\/:*?\"<>|]", "_") + ".url";
+            // エスケープ文字を通常文字に戻す
+            shortcutName = Uri.UnescapeDataString(shortcutName); 
             string shortcutPath = System.IO.Path.Combine(desktopPath, shortcutName );
 
             // Create a shortcut on the desktop
-            using (StreamWriter writer = new StreamWriter(shortcutPath))
+            using (StreamWriter writer = new StreamWriter(shortcutPath, false, Encoding.Default))
             {
                 writer.WriteLine("[InternetShortcut]");
                 writer.WriteLine("URL=" + onenoteUrl);
